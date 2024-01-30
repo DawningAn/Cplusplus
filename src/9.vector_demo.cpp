@@ -56,14 +56,14 @@ int main()
 
     cout << "====================" << endl;
     // 定义二维vector
-    vector <vector<int>> vector_2d
+    vector <vector<int>>  vector_2d
     {
         {1,2,3},
         {4,5,6},
         {7,8,9}
     };
 
-    cout << "array风格打印二维vector第一行：" << endl;
+    cout << "array风格打印二维vector第一行：" << endl; 
     cout << vector_2d[0][0] << " " << vector_2d[0][1] << " " << vector_2d[0][2] << endl;
     cout << "vector风格打印二维vector第二行：" << endl;
     cout << vector_2d.at(1).at(0) << " " << vector_2d.at(1).at(1) << " " << vector_2d.at(1).at(2) << endl;

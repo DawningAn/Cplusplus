@@ -26,6 +26,7 @@ int main()
             break;
         default:
             cout << "输入错误" << endl;
+            break;
 
     }
     return 0;
