@@ -10,21 +10,8 @@ private:
 
 public:
     //方法 
-    bool deposit (double amount){  //存款
-        balance += amount;
-        cout << "Deposit successfully :" << amount << "$" << endl;
-        return true;
-    };
-    bool withdraw (double amount){  //取款
-        if(balance >= amount){
-            balance -= amount;
-            cout << "Withdraw successfully :" << amount << "$" << endl;
-            return true;
-        }else{
-            cout << "Insufficient balance" << endl;
-            return false;
-        }
-    };
+    bool deposit (double amount);
+    bool withdraw (double amount);
 
     void set_balance(double amount){
         balance = amount;
