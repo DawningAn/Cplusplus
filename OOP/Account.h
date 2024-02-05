@@ -1,6 +1,7 @@
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
-#include <string>
+
+#incldue <string>
 
 class Account{
 private:
@@ -26,4 +27,4 @@ public:
 };
 
 
-#endif //ACCOUNT_H
+#endif // ACCOUNT_H
