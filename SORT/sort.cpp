@@ -14,7 +14,7 @@ bool comp(int left, int right){
     //return left > right;
 }
 
-int main(){
+int main(){ 
     int n;
     int arr[101];
     scanf("%d",&n); 
