@@ -37,7 +37,6 @@ int main(){
         }
 
     }
-
     sort(arr,arr + left + 1,comp);
     sort(arr+left + 1,arr +10);
     for(int i = 0;i<10;i++){
