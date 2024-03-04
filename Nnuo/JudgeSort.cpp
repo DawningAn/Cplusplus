@@ -15,15 +15,15 @@ using namespace std;
 
 bool issort(int arr[],int stats[],int n){
     bool ss = true;
-    for(int i =0;i<n;i++){
-        for(int j = i+1;j<n;j++){
-            if(stats[i] != stats[j]){
-                if(arr[i] > arr[j]){
-                    ss = false;
-                }
-            }
-        }
-    }
+    // for(int i =0;i<n;i++){
+    //     for(int j = i+1;j<n;j++){
+    //         if(stats[i] != stats[j]){
+    //             if(arr[i] > arr[j]){
+    //                 ss = false;
+    //             }
+    //         }
+    //     }
+    // }
     return ss;
 }
 int main(){
