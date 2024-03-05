@@ -5,6 +5,7 @@
         "string": "cpp",
         "iostream": "cpp",
         "*.tcc": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "binaryconversion,cpp": "c"
     }
 }
