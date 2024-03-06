@@ -36,7 +36,7 @@ int main()
         V.reserve(V.size());
         int mi = 0;
         for(unsigned int i =0;i<V.size();i++){
-            
+            printf("%d",V[i]);
         }
         printf("\n");
     }

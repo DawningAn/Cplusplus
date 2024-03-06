@@ -9,10 +9,10 @@ typedef struct Student{
     int order;
 }stu;
 
-
+// 按成绩从小到大
 bool comp0(stu a, stu b){
     if(a.score == b.score){
-        return a.order < b.order;
+        return a.order < b.order;  // 分数相同按照序号从大到小排序
     }else{
         return a.score > b.score;
     }
