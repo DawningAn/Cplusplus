@@ -6,6 +6,9 @@
         "iostream": "cpp",
         "*.tcc": "cpp",
         "list": "cpp",
-        "binaryconversion,cpp": "c"
+        "binaryconversion,cpp": "c",
+        "cmath": "cpp",
+        "complex": "cpp",
+        "ostream": "cpp"
     }
 }
