@@ -9,6 +9,11 @@
         "binaryconversion,cpp": "c",
         "cmath": "cpp",
         "complex": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "array": "cpp",
+        "deque": "cpp",
+        "forward_list": "cpp",
+        "vector": "cpp",
+        "string_view": "cpp"
     }
 }
