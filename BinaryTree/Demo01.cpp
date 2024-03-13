@@ -1,54 +1,125 @@
 #include <iostream>
+#include <vector>
 #include <queue>
 
 using namespace std;
 
-// 树节点的定义
-struct TNode{
-    int val;
-
-    struct TNode* left;
-    struct TNode* right;
+struct TreeNode {
+    char data;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode(char c) : data(c), left(NULL), right(NULL) {}
 };
 
-struct QNode{
-    TNode* parent;
-    bool isLeftin;
 
-};
-void insertNode(TNode* &root,char data,queue <QNode *> &myQueue){
-    if(data != '#'){
-        TNode* newNode = new TNode;// 堆区创建节点
-        newNode->val = data;
-        // 把刚刚创建好的节点入队
-        QNode * pQNode = new QNode;
-        pQNode->parent = newNode;
-        pQNode->isLeftin = false; 
-        myQueue.push(pQNode);
-
-        if(root == NULL){
-            root = newNode;
-        }else{
-            QNode * pParent = myQueue.front();
-            if(pParent->isLeftin == false){
-                pParent->parent->left = newNode;
-                pParent->isLeftin =true;
-            }else{
-                pParent->parent->right = newNode;
-                myQueue.pop();
-                delete pParent;  // 出队后
-            }
+void Creat(TreeNode *&root,string str)
+{
+    queue<TreeNode*>Q;
+    char c = str[0];
+    if(c!='#')
+    {
+        root = new TreeNode(c);
+        Q.push(root);
+    }
+    TreeNode *p=NULL;
+    while(!Q.empty())
+    {
+        p=Q.front();
+        Q.pop();
+        c = str[1];
+        if(c!='#')
+        {
+            root->left=new TreeNode(c);
+            Q.push(p->left);
+        }
+        c = str[2];
+        if(c!='#')
+        {
+            p->right=new TreeNode(c);
+            Q.push(p->right);
         }
     }
-    
 }
 
-int main(){
-    TNode *root = NULL;  // 指向根节点
-    char charlist[] = "abc##de#g##f###";
-    queue<QNode *> myQueue;
-    for(int i =0;charlist[i] != '\0';i++){
-        insertNode(root,charlist[i], myQueue);
+
+
+//层序遍历
+void LevelOrder(TreeNode* root) {
+    queue<TreeNode*> pos;
+    pos.push(root);
+
+    while (pos.empty() == false) {
+        TreeNode* pCur = pos.front();
+        pos.pop();  //队首出队
+        printf("%c", pCur->data);
+        if (pCur->left != NULL) {
+            pos.push(pCur->left);
+        }
+        if (pCur->right != NULL) {
+            pos.push(pCur->right);
+        }
 
     }
+    cout << endl;
+}
+
+// 先序遍历
+void PreOrder(TreeNode* root) {
+    if (root == NULL) {
+        return;
+    }
+    printf("%c", root->data);
+    PreOrder(root->left);
+    PreOrder(root->right);
+}
+
+
+// 中序遍历
+void InOrder(TreeNode* root) {
+    if (root == NULL) {
+        return;
+    }
+    InOrder(root->left);
+    cout << root->data << ' ';
+    InOrder(root->right);
+}
+
+// 后序遍历
+void PostOrder(TreeNode* root) {
+    if (root == NULL) {
+        return;
+    }
+    PostOrder(root->left);
+    PostOrder(root->right);
+    cout << root->data << ' ';
+}
+
+int main() 
+{
+    string str;
+    // unsigned int index = 0;  // 作为遍历str的下标
+    while (cin >>str) {
+        TreeNode* root = NULL;
+
+        Creat(root, str);
+
+        // 先序：abcdgfe
+        // 中序：badfgce
+        // 后序：bfgdeca
+
+        //abc##de#g##f###
+        LevelOrder(root);
+        cout<<endl;
+
+        PreOrder(root);
+        cout<<endl;
+
+        InOrder(root);
+        cout<<endl;
+
+        PostOrder(root);
+        cout << endl;
+
+    }
+    return 0;
 }
