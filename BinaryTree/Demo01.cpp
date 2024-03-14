@@ -8,118 +8,124 @@ struct TreeNode {
     char data;
     TreeNode* left;
     TreeNode* right;
-    TreeNode(char c) : data(c), left(NULL), right(NULL) {}
+};
+
+struct QueueNode{
+    TreeNode* parent;   //记录父节点
+	bool isLeft;    //记录父节点左孩子是否插入过
 };
 
 
-void Creat(TreeNode *&root,string str)
-{
-    queue<TreeNode*>Q;
-    char c = str[0];
-    if(c!='#')
-    {
-        root = new TreeNode(c);
-        Q.push(root);
-    }
-    TreeNode *p=NULL;
-    while(!Q.empty())
-    {
-        p=Q.front();
+// 层次建树
+void BuildTree(TreeNode* &proot, queue<QueueNode*>& pos, char data) {
+	if (data != '#') {
+		//申请一个树结点
+		TreeNode* pNew = new TreeNode();
+		pNew->data = data;
+
+		//申请一个队列结点
+		QueueNode* pQueueNode = new QueueNode();
+		pQueueNode->parent = pNew;//在队列结点中保存刚创建的新结点位置
+		pQueueNode->isLeft = false;//表示新结点的左孩子还没有访问过
+		pos.push(pQueueNode);//新结点入队
+
+		if (proot == NULL) {
+			proot = pNew;
+		}
+		else {
+			QueueNode* pCur = pos.front();//获取队列队首
+			if (pCur->isLeft == false) {//看看队首的左孩子是否插入过
+				pCur->parent->left = pNew;
+				pCur->isLeft = true;
+			}
+			else {
+				pCur->parent->right = pNew;//左右孩子都插入了，就出队
+				pos.pop();
+				delete pCur;
+			}
+		}
+	}
+	else {//新加入结点是空结点
+		QueueNode* pCur = pos.front();
+		if (pCur->isLeft == false) {
+			pCur->parent->left = NULL;
+			pCur->isLeft = true;
+		}
+		else {
+			pCur->parent->right = NULL;
+			pos.pop();
+			delete pCur;
+		}
+	}
+}
+
+void LevelOrder(TreeNode* root){
+    queue<TreeNode*> Q;
+    Q.push(root);
+    while(!Q.empty()){
+        TreeNode* pCur = Q.front();
         Q.pop();
-        c = str[1];
-        if(c!='#')
-        {
-            root->left=new TreeNode(c);
-            Q.push(p->left);
+        cout<<pCur->data<<' ';
+        if(pCur ->left != NULL){
+            Q.push(pCur->left);
         }
-        c = str[2];
-        if(c!='#')
-        {
-            p->right=new TreeNode(c);
-            Q.push(p->right);
+        if(pCur->right != NULL){
+            Q.push(pCur->right);
         }
     }
-}
-
-
-
-//层序遍历
-void LevelOrder(TreeNode* root) {
-    queue<TreeNode*> pos;
-    pos.push(root);
-
-    while (pos.empty() == false) {
-        TreeNode* pCur = pos.front();
-        pos.pop();  //队首出队
-        printf("%c", pCur->data);
-        if (pCur->left != NULL) {
-            pos.push(pCur->left);
-        }
-        if (pCur->right != NULL) {
-            pos.push(pCur->right);
-        }
-
-    }
-    cout << endl;
-}
+} 
 
 // 先序遍历
-void PreOrder(TreeNode* root) {
-    if (root == NULL) {
+void PreOrder(TreeNode* root){
+    if(root == NULL){
         return;
     }
-    printf("%c", root->data);
+    cout<<root->data;
     PreOrder(root->left);
     PreOrder(root->right);
 }
 
-
 // 中序遍历
-void InOrder(TreeNode* root) {
-    if (root == NULL) {
+void InOrder(TreeNode* root){
+    if(root == NULL){
         return;
     }
     InOrder(root->left);
-    cout << root->data << ' ';
+    cout<<root->data;
     InOrder(root->right);
 }
 
 // 后序遍历
-void PostOrder(TreeNode* root) {
-    if (root == NULL) {
+void PostOrder(TreeNode* root){
+    if(root == NULL){
         return;
     }
     PostOrder(root->left);
     PostOrder(root->right);
-    cout << root->data << ' ';
+    cout<<root->data;
 }
+int main(){
+    TreeNode* root = NULL;
+	char data;
+	queue<QueueNode*> pos;
+	while (1) {
+		scanf("%c", &data);
+		if (data == '\n') {//读到了一行的末尾
+			break;
+		}
+		BuildTree(root, pos, data);
+	}
 
-int main() 
-{
-    string str;
-    // unsigned int index = 0;  // 作为遍历str的下标
-    while (cin >>str) {
-        TreeNode* root = NULL;
+    LevelOrder(root);
+    cout<<endl;
+    
+    PreOrder(root);
+    cout<<endl;
 
-        Creat(root, str);
+    InOrder(root);
+    cout<<endl;
 
-        // 先序：abcdgfe
-        // 中序：badfgce
-        // 后序：bfgdeca
+    PostOrder(root);
 
-        //abc##de#g##f###
-        LevelOrder(root);
-        cout<<endl;
 
-        PreOrder(root);
-        cout<<endl;
-
-        InOrder(root);
-        cout<<endl;
-
-        PostOrder(root);
-        cout << endl;
-
-    }
-    return 0;
 }
