@@ -5,7 +5,6 @@ using namespace std;
 
 /*
 输入一个单向链表和一个节点的值，从单向链表中删除等于该值的节点，删除后如果链表中无节点则返回空指针。
-
 链表的值不能重复。
 
 构造过程，例如输入一行数据为:
@@ -48,6 +47,40 @@ using namespace std;
 输出描述：
 输出一行
 输出删除结点后的序列，每个数后都要加空格*/
-int main(){
 
+struct LNode{
+    int data;
+    LNode * next;
+};
+int main(){
+    int N,val;
+    while(cin>>N>>val){
+        LNode * head = new LNode;
+        head->data = val;
+        head->next = NULL;
+        for(int i = 0;i<N-1;i++){
+            // 1 2 
+            // 表示为2->1
+            int pre,cur;
+            cin>>cur>>pre;
+            LNode* p = new LNode;
+            p->data = cur;
+            LNode* q = head;
+            while(q->data != pre){
+                q = q->next;
+            }
+            p->next = q->next;
+            q->next = p;
+        }
+        int remove;
+        cin>> remove;
+        LNode* p = head;
+        while(p != NULL){
+            if(p->data != remove){
+                cout <<p->data<<' ';
+            }
+            p = p->next;
+        } 
+        cout <<endl;
+    }
 }
